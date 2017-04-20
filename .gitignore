@@ -1,0 +1,8 @@
+.DS_Store
+node_modules
+npm-debug.log
+.idea
+lerna-debug.log
+MAKEEN_BUILD_INFO
+packages/*/build
+secrets/makeen.key

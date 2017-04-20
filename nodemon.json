@@ -1,0 +1,11 @@
+{
+  "verbose": false,
+  "ignore": [
+    "node_modules",
+    "packages/*/node_modules",
+    "packages/*/src",
+    "logs",
+    "emails",
+    "uploads"
+  ]
+}
