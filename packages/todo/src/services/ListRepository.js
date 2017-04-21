@@ -1,3 +1,4 @@
+import Boom from 'boom';
 import { CRUDServiceContainer } from 'octobus-crud';
 import { decorators } from 'octobus.js';
 import listSchema from '../schemas/list';
@@ -7,6 +8,19 @@ const { service } = decorators;
 class ListRepository extends CRUDServiceContainer {
   constructor({ store }) {
     super(store, listSchema);
+  }
+
+  setServiceBus(serviceBus) {
+    super.setServiceBus(serviceBus);
+    const List = serviceBus.extract('ListRepository');
+
+    serviceBus.subscribe('user.User.didSignUp', ({ message }) => {
+      const { account } = message.data;
+      List.createOne({
+        name: 'inbox',
+        accountId: account._id,
+      });
+    });
   }
 
   @service()
@@ -28,6 +42,25 @@ class ListRepository extends CRUDServiceContainer {
     ]);
 
     return result;
+  }
+
+  @service()
+  async createOne(data) {
+    const { name, accountId } = data;
+    if (name && accountId) {
+      const existingList = await this.findOne({
+        query: {
+          name,
+          accountId,
+        },
+      });
+
+      if (existingList) {
+        throw Boom.badRequest('Name already used!');
+      }
+    }
+
+    return CRUDServiceContainer.prototype.createOne.call(this, data);
   }
 
   @service()

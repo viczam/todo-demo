@@ -9,7 +9,7 @@
   "author": "Victor Zamfir <victor@makeen.io>",
   "license": "MIT",
   "dependencies": {
-    "makeen-mailer": "^0.5.1",
+    "makeen-mailer": "^0.5.2",
     "react": "15.4.0",
     "react-dom": "15.4.0"
   }

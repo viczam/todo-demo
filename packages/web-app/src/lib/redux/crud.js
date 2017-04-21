@@ -19,22 +19,20 @@ export const createActionTypes = namespace => ({
   COUNT: createAPIActionTypes({ namespace, type: 'COUNT' }),
 });
 
-export const createActionCreators = (
-  {
-    actionTypes: {
-      CREATE_ONE,
-      FIND_BY_ID,
-      FIND_ONE,
-      FIND_MANY,
-      REPLACE_ONE,
-      UPDATE_ONE,
-      DELETE_ONE,
-      DELETE_ONE_BY_ID,
-      COUNT,
-    },
-    pathPrefix,
+export const createActionCreators = ({
+  actionTypes: {
+    CREATE_ONE,
+    FIND_BY_ID,
+    FIND_ONE,
+    FIND_MANY,
+    REPLACE_ONE,
+    UPDATE_ONE,
+    DELETE_ONE,
+    DELETE_ONE_BY_ID,
+    COUNT,
   },
-) => ({
+  pathPrefix,
+}) => ({
   createOne: data => ({
     types: CREATE_ONE,
     payload: {
@@ -149,21 +147,19 @@ export const createActionCreators = (
   }),
 });
 
-export const createEntitiesReducers = (
-  {
-    actionTypes: {
-      CREATE_ONE,
-      FIND_BY_ID,
-      FIND_ONE,
-      FIND_MANY,
-      REPLACE_ONE,
-      UPDATE_ONE,
-      DELETE_ONE,
-      DELETE_ONE_BY_ID,
-      COUNT,
-    },
+export const createEntitiesReducers = ({
+  actionTypes: {
+    CREATE_ONE,
+    FIND_BY_ID,
+    FIND_ONE,
+    FIND_MANY,
+    REPLACE_ONE,
+    UPDATE_ONE,
+    DELETE_ONE,
+    DELETE_ONE_BY_ID,
+    COUNT,
   },
-) => {
+}) => {
   const entityReducer = (state, { payload }) => ({
     ...state,
     [payload.data._id]: payload.data,
@@ -247,12 +243,7 @@ export const createAPIReducers = actionTypes =>
     {},
   );
 
-export const createIdsReducerMap = (
-  {
-    key,
-    actionTypes,
-  },
-) => {
+export const createIdsReducerMap = ({ key, actionTypes }) => {
   const itemReducer = (state, { payload }) => ({
     ...state,
     [payload.data[key]]: [

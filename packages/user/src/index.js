@@ -1,26 +1,23 @@
-import Joi from 'joi';
+/* eslint-disable class-methods-use-this */
+import { Plugin } from 'makeen-core';
 import * as MakeenUser from 'makeen-user';
-import pkg from '../package.json';
-import pluginOptionsSchema from './schemas/pluginOptions';
+import schema from './schemas/pluginOptions';
 
-export async function register(server, options, next) {
-  try {
-    const pluginOptions = Joi.attempt(options, pluginOptionsSchema);
+class User extends Plugin {
+  constructor() {
+    super({
+      schema,
+    });
+  }
 
+  async boot(server, options) {
     await server.register([
       {
         register: MakeenUser.register,
-        options: pluginOptions,
+        options,
       },
     ]);
-
-    next();
-  } catch (err) {
-    next(err);
   }
 }
 
-register.attributes = {
-  pkg,
-  dependencies: [],
-};
+export const { register } = new User();

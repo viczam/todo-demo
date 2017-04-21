@@ -28,7 +28,8 @@ class ItemsRouter extends MongoResourceRouter {
                   _id: objectId(request.params.listId),
                   accountId: objectId(request.auth.credentials.accountId),
                 },
-              })),
+              }),
+            ),
             assign: 'list',
           },
         ],
@@ -71,11 +72,11 @@ class ItemsRouter extends MongoResourceRouter {
     },
   })
   async toggle(request) {
-    const item = this.Repository.findOne({
+    const item = await this.Repository.findOne({
       query: {
         accountId: objectId(request.auth.credentials.accountId),
         listId: request.pre.list._id,
-        id: objectId(request.params.id),
+        _id: objectId(request.params.id),
       },
     });
 

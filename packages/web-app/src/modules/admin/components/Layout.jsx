@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import styled from 'styled-components';
 import classNames from 'classnames';
 import AccountPreload from 'modules/account/containers/Preload';
-import Sidebar from './Sidebar';
+import Sidebar from '../containers/Sidebar';
 import Main from './Main';
 import Navbar from './Navbar';
 
@@ -15,9 +15,7 @@ const Admin = ({ children, className }) => (
     <Navbar />
 
     <ContentWrapper>
-      <Sidebar>
-        this is sidebar
-      </Sidebar>
+      <Sidebar />
       <Main>
         <AccountPreload>
           {children}
